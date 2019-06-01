@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containervervoer_algoritme", "Containervervoer_algoritme\Containervervoer_algoritme.csproj", "{304B4EA3-1A46-4158-9543-C8F24BB98626}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{304B4EA3-1A46-4158-9543-C8F24BB98626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{304B4EA3-1A46-4158-9543-C8F24BB98626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{304B4EA3-1A46-4158-9543-C8F24BB98626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{304B4EA3-1A46-4158-9543-C8F24BB98626}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21A839C7-BAB3-4E86-AC17-23A2C2654DBC}
+	EndGlobalSection
+EndGlobal
