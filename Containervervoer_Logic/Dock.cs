@@ -21,33 +21,36 @@ namespace Containervervoer_Logic
             List<Container> CooledContainers = ContainersToDistribute.FindAll(c => c.IsCooled);
             List<Container> ValuableContainers = ContainersToDistribute.FindAll(c => c.IsValuable);
 
-            foreach (var cc in CooledContainers)
+            foreach (var cooledContainer in CooledContainers)
             {
-                if (!ShipToFill.TryToPlaceCooledContainer(cc))
+                if (!ShipToFill.TryToPlaceCooledContainer(cooledContainer))
                 {
                     //Toevoegen van container aan koeling niet gelukt. Moet met het volgende schip mee.
-                    ContainersForAnotherShip.Add(cc);
+                    ContainersForAnotherShip.Add(cooledContainer);
                 }
             }
 
-            foreach(var vc in ValuableContainers)
+            foreach(var valuableContainer in ValuableContainers)
             {
-                if (vc.IsValuable)
+                if (valuableContainer.IsValuable)
                 {
-                    if (ShipToFill.TryToPlaceValuableContainer(vc))
+                    if (!valuableContainer.IsCooled)
                     {
-                        //Toevoegen van container niet gelukt. Moet met het volgende schip mee.
-                        ContainersForAnotherShip.Add(vc);
+                        if (ShipToFill.TryToPlaceValuableContainer(valuableContainer))
+                        {
+                            //Toevoegen van container niet gelukt. Moet met het volgende schip mee.
+                            ContainersForAnotherShip.Add(valuableContainer);
+                        }
                     }
                 }
             }
 
-            foreach(var c in ContainersToDistribute)
+            foreach(var regularContainer in ContainersToDistribute)
             {
                 bool placedContainer = false;
 
                 //Is het een reguliere container?
-                if (!c.IsCooled && !c.IsValuable)
+                if (!regularContainer.IsCooled && !regularContainer.IsValuable)
                 {
                     //Is de linkerkant momenteel zwaarder of even zwaar als de rechterkant?
                     if (ShipToFill.IsLeftSideAsHeavyOrHeavierThanRightSide())
@@ -55,14 +58,14 @@ namespace Containervervoer_Logic
                         //Front side is heavier
                         if (ShipToFill.IsFrontSideAsHeavyOrHeavierThanBackSide())
                         {
-                            if (ShipToFill.TryToPlaceRegularContainerRightBack(c))
+                            if (ShipToFill.TryToPlaceRegularContainerRightBack(regularContainer))
                             {
                                 placedContainer = true;
                             }
                         }
                         else
                         {
-                            if (ShipToFill.TryToPlaceRegularContainerRightFront(c))
+                            if (ShipToFill.TryToPlaceRegularContainerRightFront(regularContainer))
                             {
                                 placedContainer = true;
                             }                            
@@ -74,14 +77,14 @@ namespace Containervervoer_Logic
                         //Font side is heavier
                         if (ShipToFill.IsFrontSideAsHeavyOrHeavierThanBackSide())
                         {
-                            if (ShipToFill.TryToPlaceRegularContainerLeftBack(c))
+                            if (ShipToFill.TryToPlaceRegularContainerLeftBack(regularContainer))
                             {
                                 placedContainer = true;
                             }
                         }
                         else
                         {
-                            if (ShipToFill.TryToPlaceRegularContainerLeftFront(c))
+                            if (ShipToFill.TryToPlaceRegularContainerLeftFront(regularContainer))
                             {
                                 placedContainer = true;
                             }
@@ -90,10 +93,10 @@ namespace Containervervoer_Logic
 
                     if (!placedContainer)
                     {
-                        if (!ShipToFill.TryToAddContainerToMiddle(c))
+                        if (!ShipToFill.TryToAddContainerToMiddle(regularContainer))
                         {
                             //Container kon nergens geplaats worden. Volgende schip opnieuw proberen.
-                            ContainersForAnotherShip.Add(c);
+                            ContainersForAnotherShip.Add(regularContainer);
                         }
                     }
                 }
